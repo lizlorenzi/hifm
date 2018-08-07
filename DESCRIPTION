@@ -1,9 +1,9 @@
-Package: packagesR
-Title: What the Package Does (one line, title case)
+Package: hifm
+Title: Fit Hierarchical Infinite Factor Model
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-Depends: R (>= 3.3.1)
+Authors@R: (“Elizabeth”, “Lorenzi”, email=“elizabeth.lorenzi@duke.edu”, role = c("aut", "cre"))
+Description: Fits the hierarchical infinite factor model for continuous and binary data. Assumes multiple groups and shares information to improve prediction/inference for each group. 
+Depends: R (>= 3.3.1), mvtnorm 
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
