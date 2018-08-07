@@ -1,7 +1,7 @@
 Package: hifm
 Title: Fit Hierarchical Infinite Factor Model
 Version: 0.0.0.9000
-Authors@R: person("Elizabeth", "Lorenzi", email= "elizabeth.lorenzi@duke.edu", role = c("aut", "cre"))
+Authors@R: "Elizabeth Lorenzi <elizabeth.lorenzi@duke.edu> [aut, cre]"
 URL: https://arxiv.org/abs/1807.09237
 Description: Fits the hierarchical infinite factor model for continuous and binary data. Assumes multiple groups and shares information to improve prediction/inference for each group. 
 Depends: R (>= 3.3.1), mvtnorm, GIGrvg, Rtsne, glmnet, LaplacesDemon, truncnorm, parallel, clue
