@@ -1,12 +1,33 @@
-#Runs Sparse TL Latent Factor model - using HDP prior on loadings matrix
-#Arguments: X - predictors (unscaled), Y - outcomes, K - number of factors,
-#groups - vector indicating which groups people are in, n.sim - number of iterations in sampler,
-#alpha0 - pi^0 concentration parameter (for top level of HDP), alpha_j- concentration parameter should be of length J,
-#v - degree of freedom for Sigma, #tau - degree of freedom for phi,
-#pi0 - initial values for pi0, C - tuning parameter for pi^0 MH
-#test - test indices, train-indices for training set
-#fact_prior = "laplace" or "normal"
-par_sparse_factor_model <- function(X, Y=NULL, K, groups, n.sim, alpha0, test, train, lam, fact_prior="laplace",
+#' Runs Hierarchical infinite factor model - using HDP prior on loadings matrix
+#' @param X  predictors (unscaled).
+#' @param Y  outcomes.
+#' @param K  number of factors.
+#' @param groups  vector indicating which groups people are in (for single group, rep(1, nrow(X)))
+#' @param n.sim  number of iterations in sampler.
+#' @param alpha0  pi^0 concentration parameter (for top level of HDP).
+#' @param alpha_j concentration parameter should be of length J.
+#' @param v  degree of freedom for Sigma
+#' @param tau  degree of freedom for phi.
+#' @param pi0  initial values for pi0
+#' @param C  tuning parameter for pi^0 MH
+#' @param test  test indices
+#' @param train indices for training set
+#' @param fact_prior = "laplace" or "normal"
+#' @return List of multiple return arguments: params - final iteration of all parameters,
+#' ftest - posterior samples of factors for test set (without any information on y),
+#' xtest - posterior samples of test set x with transformations, w_j - iterations of weights for each population,
+#' sigma2_j - posterior iterations of sigma2 (idiosyncratic noise), lambdas - posterior of loadings matrix,
+#' pred_resp - posterior predictive response of test set
+#' @examples   
+#' sim1 <- sim_data(500, 5, 20, 300,alpha0 = 25, alpha_1=25, alpha_2=25)
+#' test <- sample(sim1$Duke, 100);
+#' groups_sim <- rep(1, 500); groups_sim[-sim1$Duke]=2
+#' test_norm <- hifm(sim1$X[,-c(1)], Y=sim1$X[-test,1],K= 10,
+#'                                           groups=groups_sim, n.sim=1000, alpha0=15,test= test,
+#'                                           train=c(1:500)[-test], alpha_j=c(20,20), a=5, b=4, tau=4,
+#'                                           lam=2, J=2, C=40,fact_prior="normal")
+
+hifm <- function(X, Y=NULL, K, groups, n.sim, alpha0, test, train, lam, fact_prior="laplace",
                                     alpha_j, a, b, tau, pi0=NULL, wj1=NULL, wj2=NULL,phi_0=NULL, C=2, J=2, Ytest=NULL){
   no_cores =no.cores= detectCores() - 1
   

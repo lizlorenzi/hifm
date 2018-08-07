@@ -23,12 +23,12 @@
 #' sim1 <- sim_data(500, 5, 20, 300,alpha0 = 25, alpha_1=25, alpha_2=25)
 #' test <- sample(sim1$Duke, 100);
 #' groups_sim <- rep(1, 500); groups_sim[-sim1$Duke]=2
-#' test_norm <- hifm(sim1$X[,-c(1)], Y=sim1$X[-test,1],K= 10,
+#' test_norm <- hifm_wcoef(sim1$X[,-c(1)], Y=sim1$X[-test,1],K= 10,
 #'                                           groups=groups_sim, n.sim=1000, alpha0=15,test= test,
 #'                                           train=c(1:500)[-test], alpha_j=c(20,20), a=5, b=4, tau=4,
 #'                                           lam=2, J=2, C=40,fact_prior="normal")
 
-hifm <- function(X, Y=NULL, K, groups, n.sim, alpha0, test, train, lam, fact_prior="laplace",
+hifm_wcoef <- function(X, Y=NULL, K, groups, n.sim, alpha0, test, train, lam, fact_prior="laplace",
                                           alpha_j, a, b, tau, pi0=NULL, wj1=NULL, wj2=NULL,phi_0=NULL, C=2, J=2, Ytest=NULL){
   no_cores =no.cores= detectCores() - 1
   
